@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - ./telemetry:/app
+    environment:
+      - DATABASE_URL=sqlite3:/app/db.sqlite3
+  db:
+    image: postgres:12
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+volumes:
+  pg_data:
