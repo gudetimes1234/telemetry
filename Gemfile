@@ -76,3 +76,5 @@ end
 gem "sidekiq", "~> 6.5"
 
 gem "devise", "~> 4.9"
+
+gem "aws-sdk-s3", require: false
