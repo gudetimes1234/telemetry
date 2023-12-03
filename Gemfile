@@ -74,3 +74,5 @@ group :test do
 end
 
 gem "sidekiq", "~> 6.5"
+
+gem "devise", "~> 4.9"
