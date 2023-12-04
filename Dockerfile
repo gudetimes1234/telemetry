@@ -12,6 +12,9 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler
 RUN bundle install
 
+# Install Redis
+RUN apt-get update && apt-get install -y redis-server
+
 # Copy the rest of the application code to the container
 COPY . .
 

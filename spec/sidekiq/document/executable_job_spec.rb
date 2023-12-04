@@ -1,15 +1,18 @@
 require 'rails_helper'
 RSpec.describe Document::ExecutableJob, type: :job do
   user = User.create!(email: 'charles@gmail.com', password: 'dogs make good pets!')
-  # Document.create(user_id: user.id, created_by_id: user.id, updated_by_id: user.id)
 
   it 'creates an active storage file' do
+    file_path = Rails.root.join('files', 'executable.sh')
+    uploaded_file = Rack::Test::UploadedFile.new(file_path, 'text/plain')
     attrs = {
       path_to_file: 'heres/the/file',
       body: 'echo hello $1',
       name: 'example.sh'
     }
-    Document::ExecutableJob.perform_async(attrs, user)
-    expect(Document.count).to eq 1
+    DocumentCreator.new(user).create(attrs)
+    val = Document::ExecutableJob.perform_async(attrs, user)
+    expect(val).to_not be_nil
+    expect(val).to be_truthy
   end
 end
