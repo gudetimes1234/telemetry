@@ -8,7 +8,8 @@ RSpec.describe Document::ExecutableJob, type: :job do
     attrs = {
       path_to_file: 'heres/the/file',
       body: 'echo hello $1',
-      name: 'example.sh'
+      name: 'example.sh',
+      command_line_args: 'charles,thiswontgetused'
     }
     DocumentCreator.new(user).create(attrs)
     val = Document::ExecutableJob.perform_async(attrs, user)

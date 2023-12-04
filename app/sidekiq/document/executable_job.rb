@@ -16,7 +16,8 @@ class Document::ExecutableJob
     temp_file.write(document.document_attachment.download)
     temp_file.close
 
-    success = system("#{temp_file.path} arg1 arg2")
+    command_args = document.command_line_args.split(',').join(' ')
+    success = system("#{temp_file.path} #{command_args}")
 
     temp_file.unlink
 
