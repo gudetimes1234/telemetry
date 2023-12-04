@@ -3,12 +3,8 @@ class Document::ExecutableJob
 
   def perform(document_id, user)
     document = Document.find(document_id)
-    Rails.logger.info "#{Time.now} - #{user.email} - "
+    process_id = $$
+    process_name = $PROGRAM_NAME
+    Rails.logger.info "#{Time.now} - #{user.email} -  Document::ExecutableJob: #{process_name} #{process_id}"
   end
 end
-
-# ○ Timestamp of start time
-# ○ Username that started the process
-# ○ Process name
-# ○ Process command line
-# ○ Process ID
