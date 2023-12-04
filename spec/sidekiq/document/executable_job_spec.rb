@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe Document::ExecutableJob, type: :job do
-  # user = User.create!(email: 'charles@gmail.com', password: 'dogs make good pets!')
+  user = User.create!(email: 'charles@gmail.com', password: 'dogs make good pets!')
   # Document.create(user_id: user.id, created_by_id: user.id, updated_by_id: user.id)
 
   it 'creates an active storage file' do
