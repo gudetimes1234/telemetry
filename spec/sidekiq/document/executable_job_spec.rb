@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe Document::ExecutableJob, type: :job do
-  user = User.create!(email: 'charles@gmail.com', password: 'dogs make good pets!')
+  user = User.create!(email: "charles-#{SecureRandom.uuid}@gmail.com", password: 'dogs make good pets!')
 
   it 'creates an active storage file' do
     file_path = Rails.root.join('files', 'executable.sh')

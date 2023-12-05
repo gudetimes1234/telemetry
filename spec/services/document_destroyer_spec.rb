@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DocumentDestroyer do
-  user = User.create!(email: 'charles@gmail.com', password: 'dogs make good pets!')
+  user = User.create!(email: "charles-#{SecureRandom.uuid}@gmail.com", password: 'dogs make good pets!')
 
   it 'updates a documents body' do
     file_path = Rails.root.join('files', 'sample.txt')

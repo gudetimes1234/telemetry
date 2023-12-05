@@ -9,6 +9,6 @@ class DocumentDestroyer
     doc.destroy!
     process_id = $$
     process_name = $PROGRAM_NAME
-    Rails.logger.info "#{Time.now} - #{attrs[:path_to_file]}, deleted by #{@user.email}, DocumentDestroyer: #{process_name} #{process_id}"
+    Rails.logger.info "#{Time.now} - #{doc.path_to_file}, deleted by #{@user.email}, DocumentDestroyer: #{process_name} #{process_id}"
   end
 end
