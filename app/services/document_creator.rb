@@ -13,9 +13,16 @@ class DocumentCreator
     doc.created_by_id = @user.id
     doc.document_attachment.attach(attrs[:document_attachment])
     doc.save
+    log_activity(attrs[:path_to_file], @user.email)
     doc
+  end
+
+  private
+
+  def log_activity(path_to_file, email)
     process_id = $$
     process_name = $PROGRAM_NAME
-    Rails.logger.info "#{Time.now} - #{attrs[:path_to_file]}, created by #{@user.email}, DocumentCreator: #{process_name} #{process_id}"
+    logger = Logger.new('document_creator.log')
+    logger.info("#{Time.now} - #{path_to_file}, created by #{email}, DocumentCreator: #{process_name} #{process_id}")
   end
 end
