@@ -16,5 +16,6 @@ RSpec.describe DocumentCreator do
     document = Document.first
     expect(document.document_attachment).not_to be_nil
     expect(document.document_attachment.download).to eq 'there is some text here'
+    expect(document.document_type).to eq '.txt'
   end
 end

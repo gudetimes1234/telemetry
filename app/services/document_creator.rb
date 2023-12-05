@@ -9,6 +9,7 @@ class DocumentCreator
     doc.body = attrs[:body]
     doc.name = attrs[:name]
     doc.user_id = @user.id
+    doc.document_type = File.extname(attrs[:name])
     doc.updated_by_id = @user.id
     doc.created_by_id = @user.id
     doc.document_attachment.attach(attrs[:document_attachment])

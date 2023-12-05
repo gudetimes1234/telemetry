@@ -13,7 +13,7 @@ RSpec.describe Document::NetworkJob, type: :job do
     allow(TCPSocket).to receive(:new).and_return(double('socket').as_null_object)
 
     expect do
-      Document::NetworkJob.new.perform(data, destination_address, destination_port, source_address, source_port, protocol, process_details)
+      Document::NetworkJob.new.perform(data, destination_address, destination_port, source_address, source_port, protocol, process_details, 123)
     end.not_to raise_error
   end
 end

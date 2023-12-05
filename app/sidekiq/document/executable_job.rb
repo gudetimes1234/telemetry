@@ -7,16 +7,24 @@ class Document::ExecutableJob
   SOURCE_PORT = 1234
 
   def perform(document_id, user)
-    document = Document.find(document_id)
+    documents = Document.where(document_type: ['.sh', '.bin'], completed_at: nil)
     process_id = $$
     process_name = $PROGRAM_NAME
     Rails.logger.info "#{Time.now} - #{user.email} -  Document::ExecutableJob: #{process_name} #{process_id}"
-    document.run_executable_file
-    attached_document = document.document_attachment.download
-    tempfile = Tempfile.new
-    document.document_attachment.download_blob_to(tempfile)
-    number_of_bytes = File.size(tempfile.path)
-    tempfile.close
-    Document::NetworkJob.new.perform(attached_document, DESTINATION_ADDR, DESTINATION_PORT, SOURCE_ADDR, SOURT_PORT, 'tcp', {email: @user.email}, number_of_bytes)
+    documents.each do |document|
+      begin
+        document.run_executable_file
+        attached_document = document.document_attachment.download
+        tempfile = Tempfile.new
+        document.document_attachment.download_blob_to(tempfile)
+        number_of_bytes = File.size(tempfile.path)
+        tempfile.close
+        Document::NetworkJob.new.perform(attached_document, DESTINATION_ADDR, DESTINATION_PORT, SOURCE_ADDR, SOURT_PORT, 'tcp', {email: @user.email}, number_of_bytes)
+      rescue StandardError => e
+        next
+      ensure
+        document.update(completed_at: Time.now)
+      end
+    end
   end
 end
