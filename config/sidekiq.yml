@@ -1,0 +1,12 @@
+# config/sidekiq.yml
+
+---
+:concurrency: 5
+:queues:
+  - default
+  - mailers
+:logfile: ./log/sidekiq.log
+:pidfile: ./tmp/pids/sidekiq.pid
+
+:redis:
+  url: "redis://redis:6379/0"

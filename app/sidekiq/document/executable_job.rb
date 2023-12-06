@@ -6,7 +6,7 @@ class Document::ExecutableJob
   SOURCE_ADDR = "localhost"
   SOURCE_PORT = 1234
 
-  def perform(document_id, user)
+  def perform(user)
     documents = Document.where(document_type: ['.sh', '.bin'], completed_at: nil)
     process_id = $$
     process_name = $PROGRAM_NAME

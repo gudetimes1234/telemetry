@@ -12,7 +12,7 @@ RSpec.describe Document::ExecutableJob, type: :job do
       command_line_args: 'charles,thiswontgetused'
     }
     DocumentCreator.new(user).create(attrs)
-    val = Document::ExecutableJob.perform_async(attrs, user)
+    val = Document::ExecutableJob.perform_async(user)
     expect(val).to_not be_nil
     expect(val).to be_truthy
   end
